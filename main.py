@@ -1,16 +1,18 @@
-# This is a sample Python script.
+from bs4 import BeautifulSoup
+import requests
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+data_url = "https://www.marketwatch.com/tools/screener?mod=stocks"
+data_html = requests.get(data_url).content
+print(data_html)
+
+content = BeautifulSoup(data_html, 'html.parser')
+# print(content)
+options_tables = content.find_all('table')
+print(options_tables)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def main():
+    print('Hello World!')
 
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()

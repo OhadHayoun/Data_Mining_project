@@ -71,7 +71,7 @@ def main():
     rows = []
     rows.append(['Symbol', '5 Day ', '1 Month', '3 Month ', 'YTD', '1 Year'])
 
-    for stock in stocks_links_list:
+    for stock in stocks_links_list[:3]:
         symbol = stock[0]
         url = stock[1]
 
@@ -101,5 +101,7 @@ def main():
     write_file("stock performance", rows)
 
 
-main()
+
+if __name__ == '__main__':
+    main()
 

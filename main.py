@@ -3,7 +3,7 @@ import requests
 import urllib.request
 import csv
 from urllib.request import urlopen
-# import stock_performance as sp
+import stock_performance as sp
 
 
 def url_check(url):
@@ -86,7 +86,8 @@ def main():
                 volume = data[5].getText()
                 traded = data[6].getText()
 
-                if symbol not in stocks_symbol_list: # adding the stock symbol to a list
+
+                if symbol not in stocks_symbol_list and 'M' in volume: # adding the stock symbol to a list
                     stocks_symbol_list.append(symbol)
                     print('{} added to stocks_symbol_list'.format(symbol))
 
@@ -106,6 +107,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # sp.main()
+    sp.main()
 
 

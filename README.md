@@ -1,11 +1,12 @@
 # Marketwatch Scraper
 
 *this is a first version and this project is currently work-in-progress* 
-
+---
 This project is a financial data scraper, and it intended to generate data queries
 from [www.marketwatch.com](www.marketwatch.com) \
 our goal is to generate NYSE top stocks
-and writes the main table into csv files \
+and writes the main table into csv files 
+
 ---
 ### main.py
 this scraper generates table data from  the following pages specified \

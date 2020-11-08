@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
 import csv
+import os
+
 
 def file_to_list(filename):
     """
@@ -23,6 +25,7 @@ def file_to_list(filename):
 
     return stocks_links_list
 
+
 def url_check(url):
     """
     Connecting and checking request status to url address
@@ -44,13 +47,20 @@ def url_check(url):
     return
 
 
-def write_file(url_name, rows):
+def write_file(url_name, rows, folder=None):
     """
     Create csv named "url_name".csv and write rows to the file
     """
     output_file_name = '{}.csv'.format(url_name)
 
+    if folder:
+        path = os.getcwd()
+        if not os.path.isdir(folder):
+            os.mkdir(folder)
+        output_file_name = os.path.join(path, folder, output_file_name)
+
     print('\nWriting results to file..')
+
     try:
         with open(output_file_name, 'w', newline='') as f_output:
             csv_output = csv.writer(f_output)
@@ -61,17 +71,62 @@ def write_file(url_name, rows):
         return
 
 
-##### main ####
-def main():
+def get_stock_financials():
+    """ getting stock financials data """
+
+    base_financials_url_part1 = "https://www.marketwatch.com/investing/stock/"
+    base_financials_url_part2 = "/financials?mod=mw_quote_tab"
+
+    filename = 'stocks_links_list.csv'
+    stocks_links_list = file_to_list(filename)
+
+    for stock in stocks_links_list:
+        symbol = stock[0]
+
+        url = base_financials_url_part1 + symbol + base_financials_url_part2
+
+        url_check(url)
+        try:
+            page = requests.get(url)
+            soup = BeautifulSoup(page.text, 'html.parser')
+            table = soup.find_all('tr')
+        except:
+            print('Annual Financials table for {} not found'.format(symbol))
+
+        rows = []
+        rows.append(['Description', '2015 ', '2016', '2017', '2018', '2019'])
+
+        elements_list = []
+
+        # for i in range(1, len(table_elements)):
+        for i in table:
+
+            try:
+                data = i.find_all('td')
+                for value in data[:-1]:
+                    elements_list.append(str(value.getText()).strip())
+                rows.append(elements_list)
+                elements_list = []
+
+            except:
+                print("loading Financials table of {} failed".format(symbol))
+
+        print(rows)
+
+        write_file(symbol + "_Financials", rows, 'Financials')
+
+    return
+
+
+def stock_performance():
     filename = 'stocks_links_list.csv'
 
     stocks_links_list = file_to_list(filename)
-    print(stocks_links_list)
 
     rows = []
     rows.append(['Symbol', '5 Day ', '1 Month', '3 Month ', 'YTD', '1 Year'])
 
-    for stock in stocks_links_list[:3]:
+    for stock in stocks_links_list:
         symbol = stock[0]
         url = stock[1]
 
@@ -101,7 +156,10 @@ def main():
     write_file("stock performance", rows)
 
 
+def main():
+    stock_performance()
+    get_stock_financials()
+
 
 if __name__ == '__main__':
     main()
-

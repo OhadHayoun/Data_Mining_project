@@ -43,8 +43,12 @@ def write_file(url_name, rows):
         return
 
 
-###### program start here ###########
-def main():
+
+def market_screener():
+    """
+    Get market data tables of 'Top gainers' and 'Most Active' stocks
+    """
+
     base_url = "https://www.marketwatch.com"
 
     url_dict = {'Top gainers': "https://www.marketwatch.com/tools/screener?mod=stocks",
@@ -58,10 +62,8 @@ def main():
         url_check(url)
         page = requests.get(url)
         soup = BeautifulSoup(page.text, 'html.parser')
-        # member = soup.find_all("span", {"class":"current"})
         table = soup.find('table')
 
-        #
         if table is not None and len(table.find_all('tr')) > 0:
             table_elements = table.find_all('tr')
 
@@ -105,8 +107,53 @@ def main():
 
     write_file('stocks_links_list', stocks_links_list)
 
+
+def get_stock_financials(stocks_symbol_list):
+    """ getting stock financials data """
+
+    base_financials_url_part1 = "https://www.marketwatch.com/investing/stock/"
+    base_financials_url_part2 = "/financials?mod=mw_quote_tab"
+
+
+    for symbol in stocks_symbol_list:
+        url = base_financials_url_part1 + symbol + base_financials_url_part2
+        url_check(url)
+        page = requests.get(url)
+        soup = BeautifulSoup(page.text, 'html.parser')
+
+        table = soup.find('table', {'class': 'crDataTable'})
+
+        if table is not None and len(table.find_all('tr')) > 0:
+            table_elements = table.find_all('tr')
+        else:
+            print('Annual Financials table for {} not found'.format(symbol))
+            continue
+
+        rows = []
+        rows.append(['Symbol', '5 Day ', '1 Month', '3 Month ', 'YTD', '1 Year'])
+
+        elements_list = []
+        elements_list.append(symbol)
+
+        for i in range(0, len(table_elements)):
+            try:
+                elements_list.append(str(table_elements[i].getText()))
+            except:
+                print("loading performance table of {} failed".format(symbol))
+
+
+        rows.append(elements_list)
+        print(elements_list)
+
+    return
+
+def main():
+    market_screener()
+    sp.stock_performance()
+    sp.get_stock_financials()
+
 if __name__ == '__main__':
     main()
-    sp.main()
+
 
 

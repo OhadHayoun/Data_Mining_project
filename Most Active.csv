@@ -1,26 +1,35 @@
-Symbol ,Company,Last,Change,%_Change,Volume,$_Traded,Description,Staff,Comments
-ACB,Aurora Cannabis Inc.,9.79,+3.52,+56.14%,461.65M,4.52B
-NIO,NIO Inc. ADR,41.63,-0.72,-1.70%,288.78M,12.02B
-XPEV,XPeng Inc. ADR,34.81,-1.04,-2.90%,102.19M,3.56B
-HEXO,HEXO Corp.,0.90,+0.17,+23.45%,94.14M,84.31M
-PLTR,Palantir Technologies Inc.,13.83,+1.95,+16.41%,89.98M,1.24B
-GE,General Electric Co.,8.09,+0.10,+1.25%,84.13M,680.58M
-SPY,SPDR S&P 500 ETF Trust,350.16,-0.08,-0.02%,74.97M,26.25B
-XLF,Financial Select Sector SPDR ETF,24.96,-0.20,-0.79%,60.78M,1.52B
-UBER,Uber Technologies Inc.,44.87,+2.91,+6.94%,57.67M,2.59B
-EEM,iShares MSCI Emerging Markets ETF,47.93,+0.22,+0.46%,57.35M,2.75B
-BAC,Bank of America Corp.,24.31,-0.30,-1.22%,55.45M,1.35B
-UVXY,ProShares Ultra VIX Short-Term Futures ETF,14.67,-1.54,-9.50%,53.21M,780.58M
-F,Ford Motor Co.,7.79,-0.20,-2.50%,50.91M,396.61M
-COTY,Coty Inc. Cl A,4.08,+0.74,+22.16%,50.12M,204.48M
-SNAP,Snap Inc.,45.38,+3.83,+9.22%,45.87M,2.08B
-AVTR,Avantor Inc.,26.92,+1.54,+6.07%,37.73M,1.02B
-ITUB,Itau Unibanco Holding S/A ADR,4.74,+0.11,+2.38%,36.04M,170.84M
-SPXS,Direxion Daily S&P 500 Bear 3X Shares,4.88,0.00,0.00%,35.73M,174.36M
-RIG,Transocean Ltd.,1.00,-0.0047,-0.47%,34.80M,34.64M
-CGC,Canopy Growth Corp.,23.50,+2.30,+10.85%,34.15M,802.45M
-XOM,Exxon Mobil Corp.,32.78,-0.39,-1.18%,33.99M,1.11B
-MRO,Marathon Oil Corp.,4.13,-0.16,-3.73%,33.39M,137.91M
-XLE,Energy Select Sector SPDR ETF,28.93,-0.64,-2.16%,33.22M,961.15M
-SLV,iShares Silver Trust,23.79,+0.18,+0.76%,32.80M,780.42M
-SPXU,ProShares UltraPro Short S&P 500,7.39,+0.02,+0.27%,30.09M,222.37M
+S,y,m,b,o,l, 
+C,o,m,p,a,n,y
+L,a,s,t
+C,h,a,n,g,e
+%,_,C,h,a,n,g,e
+V,o,l,u,m,e
+$,_,T,r,a,d,e,d
+D,e,s,c,r,i,p,t,i,o,n
+S,t,a,f,f
+C,o,m,m,e,n,t,s
+NIO,NIO Inc. ADR,49.43,+0.98,+2.02%,120.65M,5.78B
+XPEV,XPeng Inc. ADR,53.16,+5.05,+10.50%,37.16M,1.93B
+PLTR,Palantir Technologies Inc.,18.76,-0.22,-1.16%,35.37M,657.48M
+PFE,Pfizer Inc.,36.63,+0.44,+1.23%,32.52M,1.17B
+GE,General Electric Co.,9.64,-0.03,-0.26%,32.04M,298.87M
+RIG,Transocean Ltd.,1.40,+0.07,+5.26%,27.63M,37.30M
+CCL,Carnival Corp.,17.57,-0.62,-3.42%,25.78M,438.17M
+F,Ford Motor Co.,8.74,-0.08,-0.91%,22.66M,187.85M
+SPY,SPDR S&P 500 ETF Trust,357.17,-0.61,-0.17%,21.22M,7.40B
+BAC,Bank of America Corp.,26.70,-0.29,-1.06%,17.98M,469.21M
+JMIA,Jumia Technologies AG ADR,23.43,-0.80,-3.30%,17.27M,381.69M
+LGVW,Longview Acquisition Corp. Cl A,12.07,+2.21,+22.41%,17.68M,195.83M
+M,Macy's Inc.,9.05,-0.13,-1.42%,16.70M,146.22M
+WFC,Wells Fargo & Co.,25.50,-0.66,-2.52%,16.30M,409.03M
+UVXY,ProShares Ultra VIX Short-Term Futures ETF,12.33,-0.27,-2.13%,13.97M,163.44M
+NOK,Nokia Corp. ADR,3.96,+0.07,+1.80%,12.86M,50.12M
+GSX,GSX Techedu Inc. ADR,57.76,-13.59,-19.05%,12.41M,705.22M
+BABA,Alibaba Group Holding Ltd. ADR,266.37,+6.48,+2.49%,12.29M,3.19B
+FE,FirstEnergy Corp.,28.14,-0.90,-3.10%,12.08M,324.98M
+HYG,iShares iBoxx $ High Yield Corporate Bond ETF,85.97,-0.11,-0.13%,11.76M,999.45M
+ET,Energy Transfer LP,6.07,-0.05,-0.90%,11.18M,65.82M
+STON,StoneMor Inc.,1.15,+0.13,+12.74%,10.44M,11.47M
+XLF,Financial Select Sector SPDR ETF,27.20,-0.22,-0.80%,10.49M,280.68M
+YSG,Yatsen Holding Ltd. ADR,20.00,+1.60,+8.70%,10.48M,205.28M
+EEM,iShares MSCI Emerging Markets ETF,49.07,+0.28,+0.57%,10.06M,483.28M

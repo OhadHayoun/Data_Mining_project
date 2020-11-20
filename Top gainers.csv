@@ -1,26 +1,35 @@
-Symbol ,Company,Last,Change,%_Change,Volume,$_Traded,Description,Staff,Comments
-ENPC.WT,Executive Network Partnering Corp. Wt,2.45,+1.40,+133.33%,"3,200","7,840"
-BFT.WT,Foley Trasimene Acquisition Corp. II Wt,1.65,+0.64,+63.37%,2.98M,4.91M
-ACB,Aurora Cannabis Inc.,9.79,+3.52,+56.14%,461.65M,4.52B
-CPS,Cooper-Standard Holdings Inc.,27.90,+7.86,+39.22%,1.15M,32.00M
-MOD,Modine Manufacturing Co.,9.62,+2.24,+30.35%,2.88M,27.73M
-MTL.PR,Mechel OAO ADR (Rep 1/2 of a Preferred share),0.48,+0.10,+24.65%,"69,727","33,811"
-UI,Ubiquiti Inc.,245.22,+47.42,+23.97%,"314,905",77.22M
-SUP,Superior Industries International Inc.,2.34,+0.45,+23.81%,3.20M,7.49M
-HEXO,HEXO Corp.,0.90,+0.17,+23.45%,94.14M,84.31M
-COTY,Coty Inc. Cl A,4.08,+0.74,+22.16%,50.12M,204.48M
-SNPR.WT,Tortoise Acquisition Corp. II Wt,2.30,+0.41,+21.69%,"13,998","32,195"
-REZI,Resideo Technologies Inc.,18.55,+3.16,+20.53%,3.67M,68.03M
-HPX.WT,HPX Corp. Wt,0.85,+0.13,+18.06%,"1,000",850
-LU,Lufax Holding Ltd. ADR,16.35,+2.49,+17.97%,20.00M,327.05M
-MD,Mednax Inc.,16.50,+2.46,+17.52%,3.56M,58.81M
-PLTR,Palantir Technologies Inc.,13.83,+1.95,+16.41%,89.98M,1.24B
-BMRG.WT,B. Riley Principal Merger Corp. II Wt,1.65,+0.22,+15.38%,"173,066","285,559"
-LTHM,Livent Corp.,13.65,+1.80,+15.19%,12.39M,169.07M
-YALA,Yalla Group Ltd. ADR,10.29,+1.35,+15.10%,2.02M,20.83M
-IPOB.WT,Social Capital Hedosophia Holdings Corp. II Wt,6.69,+0.84,+14.38%,"472,378",3.16M
-DVD,Dover Motorsports Inc.,1.83,+0.22,+13.66%,"161,515","295,572"
-IPOC.WT,Social Capital Hedosophia Holdings Corp. III Wt,1.74,+0.20,+13.10%,"188,446","327,896"
-SQ,Square Inc. Cl A,198.08,+22.85,+13.04%,27.09M,5.37B
-HUBS,HubSpot Inc.,380.05,+43.84,+13.04%,1.19M,453.47M
-MAX,MediaAlpha Inc.,46.02,+5.23,+12.82%,"446,822",20.56M
+S,y,m,b,o,l, 
+C,o,m,p,a,n,y
+L,a,s,t
+C,h,a,n,g,e
+%,_,C,h,a,n,g,e
+V,o,l,u,m,e
+$,_,T,r,a,d,e,d
+D,e,s,c,r,i,p,t,i,o,n
+S,t,a,f,f
+C,o,m,m,e,n,t,s
+LGVW.WT,Longview Acquisition Corp. Wt,2.90,+1.81,+166.06%,2.83M,7.54M
+LGVW.UT,Longview Acquisition Corp. Un,13.10,+2.97,+29.32%,"588,795",7.32M
+LGVW,Longview Acquisition Corp. Cl A,12.07,+2.21,+22.41%,17.68M,196.06M
+HPR,HighPoint Resources Corp.,13.15,+1.82,+16.09%,3.25M,42.77M
+CRHC.WT,Cohn Robbins Holdings Corp. Wt,1.10,+0.17,+18.28%,"55,734","36,997"
+NGVC,Natural Grocers by Vitamin Cottage Inc.,13.81,+2.23,+19.26%,"303,619",4.12M
+RMED,Ra Medical Systems Inc.,7.03,+1.09,+18.31%,"469,194",3.01M
+PRTY,Party City Holdco Inc.,4.39,+0.59,+15.39%,3.94M,16.42M
+TAP.A,Molson Coors Beverage Co. Cl A,55.00,+7.93,+16.85%,463,"25,465"
+PDAC.WT,Peridot Acquisition Corp. Wt,0.89,+0.12,+15.20%,"82,545","73,465"
+SOAC.WT,Sustainable Opportunities Acquisition Corp. Wt,1.52,+0.22,+17.12%,"96,954","133,842"
+IPV.WT,InterPrivate Acquisition Corp. Wt,1.50,+0.20,+14.94%,"71,045","103,126"
+ALUS.WT,Alussa Energy Acquisition Corp. Wt,0.79,+0.09,+12.84%,"2,248","1,776"
+GIK.WT,GigCapital3 Inc. Wt,1.75,+0.23,+15.13%,"818,769",1.37M
+BALY,Bally's Corp.,42.65,+5.64,+15.24%,"447,310",17.79M
+NTZ,Natuzzi S.p.A. ADR,6.95,+0.70,+11.20%,"34,299","229,376"
+FAII.WT,Fortress Value Acquisition Corp. II Wt,1.55,+0.14,+9.93%,"3,701","5,737"
+MP.WT,MP Materials Corp. Wt,5.39,+0.44,+8.89%,"269,501",1.44M
+GIX.WT,GigCapital2 Inc. Wt,0.45,+0.04,+9.49%,"113,216","50,947"
+XPEV,XPeng Inc. ADR,53.12,+5.01,+10.41%,37.15M,1.92B
+YSG,Yatsen Holding Ltd. ADR,20.00,+1.60,+8.67%,10.48M,205.28M
+HZAC.WT,Horizon Acquisition Corp. Wt,1.20,+0.10,+9.09%,"1,606","1,927"
+WPF.WT,Foley Trasimene Acquisition Corp. Wt,1.52,+0.13,+8.99%,638,967
+SNPR.WT,Tortoise Acquisition Corp. II Wt,1.99,+0.16,+8.95%,"33,485","66,632"
+RENN,Renren Inc. ADR,4.49,+0.68,+17.85%,"222,425","843,306"

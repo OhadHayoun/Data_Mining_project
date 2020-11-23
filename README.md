@@ -49,6 +49,10 @@ csv
 
 ---
 
+### -- add later --
+#### command line scraper setup
+add commands \
+add arguments 
 
 
 #### for more information and support:

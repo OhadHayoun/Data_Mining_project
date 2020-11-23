@@ -1,60 +1,60 @@
 Description,2015 ,2016,2017,2018,2019
 
-Sales/Revenue,705.5M,769.03M,849.04M,903.58M,1.04B
-Sales Growth,-,9.01%,10.40%,6.42%,14.75%
-Cost of Goods Sold (COGS) incl. D&A,528.39M,585.14M,652.13M,693.07M,753.7M
-COGS excluding D&A,502.76M,555.53M,622.6M,663.59M,722.51M
-Depreciation & Amortization Expense,25.63M,29.61M,29.53M,29.48M,31.19M
-Depreciation,25.53M,29.51M,29.43M,28.98M,-
-Amortization of Intangibles,"100,000","100,000","100,000","500,000",-
-COGS Growth,-,10.74%,11.45%,6.28%,8.75%
-Gross Income,177.11M,183.89M,196.91M,210.51M,283.14M
-Gross Income Growth,-,3.83%,7.08%,6.91%,34.50%
-Gross Profit Margin,-,-,-,-,27.31%
+Sales/Revenue,624.68M,705.5M,769.03M,849.04M,903.58M
+Sales Growth,-,12.94%,9.01%,10.40%,6.42%
+Cost of Goods Sold (COGS) incl. D&A,463.12M,528.39M,585.14M,652.13M,693.07M
+COGS excluding D&A,441.69M,502.76M,555.53M,622.6M,663.59M
+Depreciation & Amortization Expense,21.44M,25.63M,29.61M,29.53M,29.48M
+Depreciation,21.34M,25.53M,29.51M,29.43M,28.98M
+Amortization of Intangibles,"100,000","100,000","100,000","100,000","500,000"
+COGS Growth,-,14.09%,10.74%,11.45%,6.28%
+Gross Income,161.56M,177.11M,183.89M,196.91M,210.51M
+Gross Income Growth,-,9.63%,3.83%,7.08%,6.91%
+Gross Profit Margin,-,-,-,-,23.30%
 
-SG&A Expense,156.73M,169.79M,179.59M,192.01M,253.85M
+SG&A Expense,132.93M,156.73M,169.79M,179.59M,192.01M
 Research & Development,-,-,-,-,-
-Other SG&A,156.73M,169.79M,179.59M,192.01M,-
-SGA Growth,-,8.33%,5.77%,6.92%,32.21%
+Other SG&A,132.93M,156.73M,169.79M,179.59M,192.01M
+SGA Growth,-,17.91%,8.33%,5.77%,6.92%
 Other Operating Expense,-,-,-,-,-
-Unusual Expense,-,-,-,"380,000",-
-EBIT after Unusual Expense,-,-,-,18.12M,-
-Non Operating Income/Expense,-,-,(2.27M),(1.36M),(1.54M)
+Unusual Expense,-,-,-,-,"380,000"
+EBIT after Unusual Expense,-,-,-,-,18.12M
+Non Operating Income/Expense,-,-,-,(2.27M),(1.36M)
 Non-Operating Interest Income,-,-,-,-,-
 Equity in Affiliates (Pretax),-,-,-,-,-
-Interest Expense,3.04M,3.79M,4.56M,4.95M,2.05M
-Interest Expense Growth,-,24.61%,20.22%,8.60%,-58.64%
-Gross Interest Expense,3.58M,4.28M,4.75M,5.22M,2.05M
-Interest Capitalized,"538,000","482,000","187,000","268,000",-
-Pretax Income,17.34M,10.31M,10.49M,11.81M,25.7M
-Pretax Income Growth,-,-40.55%,1.82%,12.59%,117.55%
-Pretax Margin,-,-,-,-,2.48%
-Income Tax,5.86M,3.41M,(2.17M),2.4M,5.69M
-Income Tax - Current Domestic,(1.11M),3.17M,3.8M,(1.58M),-
+Interest Expense,2.99M,3.04M,3.79M,4.56M,4.95M
+Interest Expense Growth,-,1.70%,24.61%,20.22%,8.60%
+Gross Interest Expense,3.29M,3.58M,4.28M,4.75M,5.22M
+Interest Capitalized,"300,000","538,000","482,000","187,000","268,000"
+Pretax Income,25.64M,17.34M,10.31M,10.49M,11.81M
+Pretax Income Growth,-,-32.38%,-40.55%,1.82%,12.59%
+Pretax Margin,-,-,-,-,1.31%
+Income Tax,9.43M,5.86M,3.41M,(2.17M),2.4M
+Income Tax - Current Domestic,8.8M,(1.11M),3.17M,3.8M,(1.58M)
 Income Tax - Current Foreign,-,-,-,-,-
-Income Tax - Deferred Domestic,6.97M,"241,000",(5.97M),3.97M,-
+Income Tax - Deferred Domestic,"630,000",6.97M,"241,000",(5.97M),3.97M
 Income Tax - Deferred Foreign,-,-,-,-,-
 Income Tax Credits,-,-,-,-,-
 Equity in Affiliates,-,-,-,-,-
 Other After Tax Income (Expense),-,-,-,-,-
-Consolidated Net Income,11.47M,6.89M,12.66M,9.42M,20.01M
+Consolidated Net Income,16.2M,11.47M,6.89M,12.66M,9.42M
 Minority Interest Expense,-,-,-,-,-
-Net Income,11.47M,6.89M,12.66M,9.42M,20.01M
-Net Income Growth,-,-39.93%,83.73%,-25.63%,112.50%
-Net Margin Growth,-,-,-,-,1.93%
+Net Income,16.2M,11.47M,6.89M,12.66M,9.42M
+Net Income Growth,-,-29.21%,-39.93%,83.73%,-25.63%
+Net Margin Growth,-,-,-,-,1.04%
 Extraordinaries & Discontinued Operations,-,-,-,-,-
 Extra Items & Gain/Loss Sale Of Assets,-,-,-,-,-
 Cumulative Effect - Accounting Chg,-,-,-,-,-
 Discontinued Operations,-,-,-,-,-
-Net Income After Extraordinaries,11.47M,6.89M,12.66M,9.42M,20.01M
+Net Income After Extraordinaries,16.2M,11.47M,6.89M,12.66M,9.42M
 Preferred Dividends,-,-,-,-,-
-Net Income Available to Common,11.47M,6.89M,12.66M,9.42M,20.01M
-EPS (Basic),0.51,0.31,0.57,0.42,0.89
-EPS (Basic) Growth,-,-39.22%,82.65%,-25.84%,111.76%
-Basic Shares Outstanding,22.49M,22.45M,22.36M,22.42M,22.5M
-EPS (Diluted),0.51,0.31,0.56,0.42,0.89
-EPS (Diluted) Growth,-,-39.22%,82.23%,-26.09%,112.26%
-Diluted Shares Outstanding,22.51M,22.46M,22.41M,22.55M,22.58M
-EBITDA,46.01M,43.71M,46.86M,47.98M,60.49M
-EBITDA Growth,-,-5.01%,7.20%,2.40%,26.06%
-EBITDA Margin,-,-,-,-,5.83%
+Net Income Available to Common,16.2M,11.47M,6.89M,12.66M,9.42M
+EPS (Basic),0.72,0.51,0.31,0.57,0.42
+EPS (Basic) Growth,-,-29.17%,-39.22%,82.65%,-25.84%
+Basic Shares Outstanding,22.49M,22.49M,22.45M,22.36M,22.42M
+EPS (Diluted),0.72,0.51,0.31,0.56,0.42
+EPS (Diluted) Growth,-,-29.17%,-39.22%,82.23%,-26.09%
+Diluted Shares Outstanding,22.5M,22.51M,22.46M,22.41M,22.55M
+EBITDA,50.07M,46.01M,43.71M,46.86M,47.98M
+EBITDA Growth,-,-8.10%,-5.01%,7.20%,2.40%
+EBITDA Margin,-,-,-,-,5.31%

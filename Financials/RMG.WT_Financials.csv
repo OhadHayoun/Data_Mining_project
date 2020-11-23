@@ -1,0 +1,65 @@
+D,e,s,c,r,i,p,t,i,o,n
+2,0,1,5, 
+2,0,1,6
+2,0,1,7
+2,0,1,8
+2,0,1,9
+
+Sales/Revenue,-,-,-,-,-
+Sales Growth,-,-,-,-,-
+Cost of Goods Sold (COGS) incl. D&A,-,-,-,-,-
+COGS excluding D&A,-,-,-,-,-
+Depreciation & Amortization Expense,-,-,-,-,-
+Depreciation,-,-,-,-,-
+Amortization of Intangibles,-,-,-,-,-
+COGS Growth,-,-,-,-,-
+Gross Income,-,-,-,-,-
+Gross Income Growth,-,-,-,-,-
+Gross Profit Margin,-,-,-,-,-
+
+SG&A Expense,-,-,-,"2,565","893,066"
+Research & Development,-,-,-,-,-
+Other SG&A,-,-,-,"2,565","893,066"
+SGA Growth,-,-,-,-,"34,717.39%"
+Other Operating Expense,-,-,-,-,"200,000"
+Unusual Expense,-,-,-,-,-
+EBIT after Unusual Expense,-,-,-,-,-
+Non Operating Income/Expense,-,-,-,-,3.57M
+Non-Operating Interest Income,-,-,-,10,"411,411"
+Equity in Affiliates (Pretax),-,-,-,-,-
+Interest Expense,-,-,-,-,-
+Interest Expense Growth,-,-,-,-,-
+Gross Interest Expense,-,-,-,-,-
+Interest Capitalized,-,-,-,-,-
+Pretax Income,-,-,-,"(2,555)",2.88M
+Pretax Income Growth,-,-,-,-,"112,953.07%"
+Pretax Margin,-,-,-,-,-
+Income Tax,-,-,-,-,"797,313"
+Income Tax - Current Domestic,-,-,-,-,-
+Income Tax - Current Foreign,-,-,-,-,-
+Income Tax - Deferred Domestic,-,-,-,-,-
+Income Tax - Deferred Foreign,-,-,-,-,-
+Income Tax Credits,-,-,-,-,-
+Equity in Affiliates,-,-,-,-,-
+Other After Tax Income (Expense),-,-,-,-,-
+Consolidated Net Income,-,-,-,"(2,555)",2.09M
+Minority Interest Expense,-,-,-,-,-
+Net Income,-,-,-,"(2,555)",2.09M
+Net Income Growth,-,-,-,-,"81,747.08%"
+Net Margin Growth,-,-,-,-,-
+Extraordinaries & Discontinued Operations,-,-,-,-,-
+Extra Items & Gain/Loss Sale Of Assets,-,-,-,-,-
+Cumulative Effect - Accounting Chg,-,-,-,-,-
+Discontinued Operations,-,-,-,-,-
+Net Income After Extraordinaries,-,-,-,"(2,555)",2.09M
+Preferred Dividends,-,-,-,-,-
+Net Income Available to Common,-,-,-,"(2,555)",2.09M
+EPS (Basic),-,-,-,(),0.07
+EPS (Basic) Growth,-,-,-,-,"72,800.00%"
+Basic Shares Outstanding,-,-,-,28.75M,28.68M
+EPS (Diluted),-,-,-,(),0.07
+EPS (Diluted) Growth,-,-,-,-,"72,800.00%"
+Diluted Shares Outstanding,-,-,-,28.75M,28.68M
+EBITDA,-,-,-,"(2,560)",(1.09M)
+EBITDA Growth,-,-,-,-,"-42,598.05%"
+EBITDA Margin,-,-,-,-,-

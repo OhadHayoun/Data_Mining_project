@@ -31,7 +31,7 @@ def cli():
                                            'stock_p']))
 def pd(data): # TODO - add different kinds of prints
     click.echo("------ enter to pd ------")
-    if data == 'full': scraper.main(data)
+    scraper.main(data)
 
     pass
 

@@ -1,8 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-import urllib.request
 import csv
-from urllib.request import urlopen
 import stock_performance as sp
 
 
@@ -41,7 +39,6 @@ def write_file(url_name, rows):
     except:
         print('Error writing to file "{}" '.format(output_file_name))
         return
-
 
 
 def market_screener(command = None):

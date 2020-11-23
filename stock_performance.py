@@ -125,8 +125,8 @@ def stock_performance():
 
     stocks_links_list = file_to_list(filename)
 
-    rows = ['Symbol', '5 Day ', '1 Month', '3 Month ', 'YTD', '1 Year']
-    rows.append(['Symbol', '5 Day ', '1 Month', '3 Month ', 'YTD', '1 Year'])
+    rows = [['Symbol', '5 Day ', '1 Month', '3 Month ', 'YTD', '1 Year']]
+    # rows.append(['Symbol', '5 Day ', '1 Month', '3 Month ', 'YTD', '1 Year'])
 
     for stock in stocks_links_list:
         symbol = stock[0]

@@ -1,26 +1,26 @@
-Symbol ,Company,Last,Change,%_Change,Volume,$_Traded,Description,Staff,Comments
-LGVW.WT,Longview Acquisition Corp. Wt,2.85,+1.76,+161.47%,4.56M,13.00M
-CLII.WT,Climate Change Crisis Real Impact I Acquisition Corp. Wt,1.20,+0.45,+60.00%,"59,975","71,970"
-LGVW.UT,Longview Acquisition Corp. Un,13.40,+3.27,+32.28%,1.67M,22.43M
-BALY,Bally's Corp.,48.40,+11.39,+30.78%,1.58M,76.35M
-BMY.RT,Bristol Myers Squibb Co. Rt,0.83,+0.19,+30.50%,18.37M,15.25M
-TDW.WTB,Tidewater Inc. Wt Series B,0.24,+0.05,+29.66%,"4,472","1,073"
-VYGG.WT,Vy Global Growth Wt,1.40,+0.32,+29.63%,"3,300","4,620"
-CPSR.WT,Capstar Special Purpose Acquisition Corp. Wt,1.10,+0.24,+27.91%,"38,677","42,545"
-LGVW,Longview Acquisition Corp. Cl A,12.50,+2.64,+26.77%,28.08M,351.02M
-CRHC.WT,Cohn Robbins Holdings Corp. Wt,1.15,+0.22,+23.66%,"92,688","106,591"
-NTZ,Natuzzi S.p.A. ADR,7.52,+1.27,+20.32%,"139,835",1.05M
-PDAC.WT,Peridot Acquisition Corp. Wt,0.92,+0.15,+19.08%,"108,287","99,624"
-SOAC.WT,Sustainable Opportunities Acquisition Corp. Wt,1.54,+0.24,+18.45%,"223,564","344,266"
-CCAC.WT,CITIC Capital Acquisition Corp. Wt,1.37,+0.21,+18.10%,"160,430","219,789"
-NSCO.WT,Nesco Holdings Inc. Wt,0.45,+0.07,+17.74%,"49,003","21,924"
-STPK.WT,Star Peak Energy Transition Corp. Wt,1.35,+0.20,+17.39%,"58,179","78,542"
-YAC.WT,Yucaipa Acquisition Corp. Wt,1.06,+0.16,+17.27%,"2,667","2,838"
-TRNE.WT,Trine Acquisition Corp. Wt,2.62,+0.38,+16.96%,"566,131",1.48M
-TAP.A,Molson Coors Beverage Co. Cl A,55.00,+7.93,+16.85%,663,"36,465"
-TDW.WTA,Tidewater Inc. Wt Series A,0.57,+0.08,+16.30%,"5,634","3,211"
-NGVC,Natural Grocers by Vitamin Cottage Inc.,13.43,+1.85,+15.98%,"476,796",6.40M
-STON,StoneMor Inc.,1.18,+0.16,+15.69%,10.66M,12.58M
-GLEO.WT,Galileo Acquisition Corp. Wt,0.56,+0.07,+15.39%,"27,550","15,428"
-NTP,Nam Tai Property Inc.,5.79,+0.74,+14.65%,"78,883","456,733"
-ZYME,Zymeworks Inc.,47.16,+5.66,+13.64%,1.42M,66.99M
+Symbol ,Company,Last,Change,%_Change,Volume,$_Traded
+GIX.WT,GigCapital2 Inc. Wt,0.81,+0.36,+80.00%,1.69M,1.39M
+VGAC.WT,VG Acquisition Corp. Wt,1.53,+0.53,+52.99%,"256,444","379,519"
+TDW.WTB,Tidewater Inc. Wt Series B,0.36,+0.12,+50.00%,"12,430","4,475"
+VYGG.WT,Vy Global Growth Wt,2.02,+0.62,+44.29%,"24,394","49,276"
+GIX.RT,GigCapital2 Inc. Rt,0.33,+0.10,+43.48%,"446,328","146,760"
+RENN,Renren Inc. ADR,6.11,+1.79,+41.46%,"901,825",5.42M
+PDAC.WT,Peridot Acquisition Corp. Wt,1.28,+0.36,+39.13%,"164,798","210,941"
+APSG.WT,Apollo Strategic Growth Capital Wt,1.35,+0.35,+35.00%,"113,510","153,239"
+PEI,Pennsylvania Real Estate Investment Trust,0.81,+0.21,+36.06%,10.06M,7.88M
+IMPX.WT,AEA-Bridges Impact Corp. Wt,0.85,+0.20,+30.77%,"167,160","142,086"
+SBE.WT,Switchback Energy Acquisition Corp. Wt,12.33,+2.68,+27.76%,"695,436",8.66M
+RIG,Transocean Ltd.,1.74,+0.36,+26.09%,59.54M,102.23M
+NGA.WT,Northern Genesis Acquisition Corp. Wt,3.00,+0.60,+25.01%,"305,238","899,943"
+OXY.WT,Occidental Petroleum Corp. Wt,4.61,+0.89,+23.79%,1.41M,6.39M
+BORR,Borr Drilling Ltd.,0.75,+0.13,+20.37%,7.13M,5.43M
+SBE.UT,Switchback Energy Acquisition Corp. Un,35.93,+6.66,+22.75%,"123,037",4.44M
+JMIA,Jumia Technologies AG ADR,30.58,+5.84,+23.62%,21.33M,641.49M
+IDT,IDT Corp. Cl B,11.92,+2.41,+25.34%,1.24M,14.46M
+AIG.WT,American International Group Inc. Wt,1.00,+0.18,+22.44%,"742,169","745,138"
+SBE,Switchback Energy Acquisition Corp. Cl A,32.01,+5.85,+22.34%,16.42M,523.56M
+RESI,Front Yard Residential Corp.,16.37,+2.97,+22.13%,7.53M,122.93M
+XPEV,XPeng Inc. ADR,63.62,+9.73,+18.06%,67.47M,4.33B
+GCI,Gannett Co. Inc.,2.77,+0.48,+21.07%,2.99M,8.15M
+CPE,Callon Petroleum Co.,9.70,+1.71,+21.42%,4.54M,43.31M
+UMC,United Microelectronics Corp. ADR,6.94,+1.16,+19.98%,7.78M,53.39M

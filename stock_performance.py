@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 import os
-import logging
+
 
 def file_to_list(filename):
     """
@@ -25,6 +25,7 @@ def file_to_list(filename):
 
     return stocks_links_list
 
+
 def url_check(url):
     """
     Connecting and checking request status to url address
@@ -32,7 +33,6 @@ def url_check(url):
 
     # getting url request
     print('Connecting to ', url)
-
     req_check = requests.get(url)
 
     # checking request status
@@ -40,13 +40,12 @@ def url_check(url):
 
     if req_check.status_code == requests.codes.ok:
         print('request OK')
-        logging.info('url request status = [{}]'.format(req_check.status_code))
     else:
         print('request error')
-        logging.warning('Url request from {} Failed, '.format(url))
         exit()
 
     return
+
 
 def write_file(url_name, rows, folder=None):
     """
@@ -67,13 +66,12 @@ def write_file(url_name, rows, folder=None):
             csv_output = csv.writer(f_output)
             csv_output.writerows(rows)
             print('file "{}" created successfully\n'.format(output_file_name))
-            logging.debug('file "{}" created successfully\n'.format(output_file_name))
-
     except:
-        logging.error('Error writing to file "{}" '.format(output_file_name))
+        print('Error writing to file "{}" '.format(output_file_name))
         return
 
-def get_stock_financials():
+
+def get_stock_financials(command = None):
     """ getting stock financials data """
 
     base_financials_url_part1 = "https://www.marketwatch.com/investing/stock/"
@@ -93,11 +91,10 @@ def get_stock_financials():
             soup = BeautifulSoup(page.text, 'html.parser')
             table = soup.find_all('tr')
         except:
-            logging.warning('Annual Financials table for {} not found'.format(symbol))
+            print('Annual Financials table for {} not found'.format(symbol))
 
-
-        rows = ['Description', '2015 ', '2016', '2017', '2018', '2019']
-        # rows.append(['Description', '2015 ', '2016', '2017', '2018', '2019'])
+        rows = []
+        rows.append(['Description', '2015 ', '2016', '2017', '2018', '2019'])
 
         elements_list = []
 
@@ -112,21 +109,22 @@ def get_stock_financials():
                 elements_list = []
 
             except:
-                logging.error("loading Financials table of {} failed".format(symbol))
+                print("loading Financials table of {} failed".format(symbol))
+
 
         print(rows)
 
-        # write_file(symbol + "_Financials", rows, 'Financials')
         write_file(symbol + "_Financials", rows, 'Financials')
 
     return
 
-def stock_performance():
+
+def stock_performance(command = None):
     filename = 'stocks_links_list.csv'
 
     stocks_links_list = file_to_list(filename)
 
-    rows = ['Symbol', '5 Day ', '1 Month', '3 Month ', 'YTD', '1 Year']
+    rows = []
     rows.append(['Symbol', '5 Day ', '1 Month', '3 Month ', 'YTD', '1 Year'])
 
     for stock in stocks_links_list:
@@ -141,7 +139,7 @@ def stock_performance():
         if table is not None and len(table.find_all('li')) > 0:
             table_elements = table.find_all('li')
         else:
-            logging.warning('performance table for {} not found'.format(symbol))
+            print('performance table for {} not found'.format(symbol))
             continue
 
         elements_list = []
@@ -151,9 +149,7 @@ def stock_performance():
             try:
                 elements_list.append(str(table_elements[i].getText()))
             except:
-                logging.warning("loading performance table of {} failed".format(symbol))
-            else:
-                logging.info("performance table of {} loaded successfully".format(symbol))
+                print("loading performance table of {} failed".format(symbol))
 
         rows.append(elements_list)
         print(elements_list)
@@ -161,9 +157,9 @@ def stock_performance():
     write_file("stock performance", rows)
 
 
-def main():
-    stock_performance()
-    get_stock_financials()
+def main(command = None):
+    stock_performance(command)
+    get_stock_financials(command)
 
 
 if __name__ == '__main__':

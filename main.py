@@ -1,41 +1,77 @@
 from bs4 import BeautifulSoup
 import requests
+import urllib.request
+import csv
+from urllib.request import urlopen
 import stock_performance as sp
 
-def market_screener():
+
+def url_check(url):
+    """
+    Connecting and checking request status to url address
+    """
+    # getting url request
+    print('Connecting to ', url)
+    req_check = requests.get(url)
+
+    # checking request status
+    print('url request status = [{}]'.format(req_check.status_code))
+
+    if req_check.status_code == requests.codes.ok:
+        print('request OK')
+    else:
+        print('request error')
+        exit()
+
+    return
+
+
+def write_file(url_name, rows):
+    """
+    Create csv named "url_name".csv and write rows to the file
+    """
+    output_file_name = '{}.csv'.format(url_name)
+
+    print('\nWriting results to file..')
+    try:
+        with open(output_file_name, 'w', newline='') as f_output:
+            csv_output = csv.writer(f_output)
+            csv_output.writerows(rows)
+            print('file "{}" created suuccesfuly\n'.format(output_file_name))
+    except:
+        print('Error writing to file "{}" '.format(output_file_name))
+        return
+
+
+
+def market_screener(command = None):
+    print(command)
     """
     Get market data tables of 'Top gainers' and 'Most Active' stocks
     """
 
-    #define  basic urls and required lists
     base_url = "https://www.marketwatch.com"
 
     url_dict = {'Top gainers': "https://www.marketwatch.com/tools/screener?mod=stocks",
                 'Most Active': "https://www.marketwatch.com/tools/screener?exchange=Nyse&report=MostActive",
                 }
+
     stocks_symbol_list = []
     stocks_links_list = []
 
-    #itrate the url_dict to access each url
     for name, url in url_dict.items():
-        sp.url_check(url)
+        url_check(url)
+        page = requests.get(url)
+        soup = BeautifulSoup(page.text, 'html.parser')
+        table = soup.find('table')
 
-        #getting a page request from the url and parsing
-        # the page to a table with BeautifulSoup
-        try:
-            page = requests.get(url)
-            soup = BeautifulSoup(page.text, 'html.parser')
-            table = soup.find('table')
-
-            # if table is not None and len(table.find_all('tr')) > 0:
+        if table is not None and len(table.find_all('tr')) > 0:
             table_elements = table.find_all('tr')
 
-        except ResourceWarning:
-            print("Error reading '{}' page from url: {}".format(name,url))
+        rows = []
+        rows.append(
+            ['Symbol ', 'Company', 'Last', 'Change', '%_Change', 'Volume', '$_Traded', 'Description', 'Staff', 'Comments'])
 
-        rows = ['Symbol ', 'Company', 'Last', 'Change', '%_Change', 'Volume', '$_Traded', 'Description', 'Staff', 'Comments']
-
-        #iterating the table row (stock) to gat the data
         for result in table_elements:
             try:
                 # find all columns per result
@@ -70,20 +106,27 @@ def market_screener():
             # adding the stock page url link to a list
             if [base_url + link] not in stocks_links_list:
                 stocks_links_list.append([symbol, base_url + link])
-
-        print(rows)
-
+        print("==================")
+        print(f"{name} OUTPUT")
+        for row in rows:
+            print(row)
         #writing the rows data to a file
-        sp.write_file(name, rows)
+        if command == None:
+            sp.write_file(name, rows)
 
     # writing the stocks links list to a file
-    sp.write_file('stocks_links_list', stocks_links_list)
+    if command == 'full':
+        print("Stocks Links List:")
+        for link in stocks_links_list:
+            print(link)
+    if command == None:
+        sp.write_file('stocks_links_list', stocks_links_list)
 
 
-def main():
-    market_screener()
-    sp.stock_performance()
-    sp.get_stock_financials()
+def main(command = None):
+    market_screener(command)
+    sp.stock_performance(command)
+    sp.get_stock_financials(command)
 
 
 if __name__ == '__main__':

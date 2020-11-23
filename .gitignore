@@ -133,3 +133,11 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+/Financials/
+/test.py
+/test2.py
+/test3.py
+/test4.py
+/test5.py
+results.txt
+test2.db

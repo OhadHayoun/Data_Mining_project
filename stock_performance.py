@@ -3,6 +3,9 @@ import requests
 import csv
 import os
 import logging
+import pandas as pd
+from sqlalchemy import create_engine
+import datetime
 
 def file_to_list(filename):
     """
@@ -120,49 +123,132 @@ def get_stock_financials():
 
     return
 
-def stock_performance():
+def stock_overview():
+    """
+    gets the stock 'KEY DATA' and the 'PERFORMANCE' tables from the stock 'OVERVIEW' page
+    """
+    TABLE_NAME = 'key_data'
+    DB_NAME = 'market_scraper'
+
     filename = 'stocks_links_list.csv'
-
     stocks_links_list = file_to_list(filename)
+    rows = []
 
-    rows = [['Symbol', '5 Day ', '1 Month', '3 Month ', 'YTD', '1 Year']]
-    # rows.append(['Symbol', '5 Day ', '1 Month', '3 Month ', 'YTD', '1 Year'])
-
-    for stock in stocks_links_list:
+    #iterating the stocks_links_list - each row the a stock page link
+    for stock in stocks_links_list[:4]:   ###### 3 for test
         symbol = stock[0]
         url = stock[1]
 
+        #checking url and getting the page
         url_check(url)
         page = requests.get(url)
-        soup = BeautifulSoup(page.text, 'html.parser')
-        table = soup.find('table', {'class': 'table table--primary no-heading c2'})
 
+        #parsing the page with BeautifulSoup
+        soup = BeautifulSoup(page.text, 'html.parser')
+
+
+        stock_performance(soup,symbol)
+
+        #loading the required table value
+        table = soup.find('ul', {'class': 'list list--kv list--col50'})
+
+        #getting the table elements from the table
         if table is not None and len(table.find_all('li')) > 0:
             table_elements = table.find_all('li')
         else:
             logging.warning('performance table for {} not found'.format(symbol))
             continue
 
-        elements_list = []
-        elements_list.append(symbol)
+        elements_list = [symbol]
+        columns_list = ['symbol']
 
-        for i in range(0, len(table_elements), 2):
+        #iterating through the table elements and getting the required values
+        for i in range(0, len(table_elements)):
             try:
-                elements_list.append(str(table_elements[i].getText()))
-            except:
+                elements_list.append(str(table_elements[i].contents[3].getText()))
+                columns_list.append(str(table_elements[i].contents[1].getText()))
+            except ResourceWarning:
                 logging.warning("loading performance table of {} failed".format(symbol))
-            else:
+            else :
                 logging.info("performance table of {} loaded successfully".format(symbol))
 
+        #adding the values to the 'rows' table
         rows.append(elements_list)
         print(elements_list)
 
-    write_file("stock performance", rows)
+    #creating a pd DataFrame from the 'rows' table
+    df = pd.DataFrame(rows, columns=columns_list)
+    df['date_time'] = pd.to_datetime('now')
 
+    #prints df for tests
+    print(df)
+
+    #uploading df to the database
+    df_to_db(DB_NAME, TABLE_NAME, df)
+
+    # write_file("stock performance", rows)
+
+    return
+
+def stock_profile():
+    return
+
+def df_to_db(database_name, table_name, df):
+
+    engine = create_engine('sqlite:///{}.db'.format(database_name), echo=False)
+    sqlite_connection = engine.connect()
+
+    df.to_sql(table_name, sqlite_connection, if_exists='append',index=False)
+    return
+
+def stock_performance(soup,symbol):
+    """
+    gets the stock 'PERFORMANCE' table from the stock 'OVERVIEW' page
+    """
+    TABLE_NAME = 'stock_performance'
+    DB_NAME = 'market_scraper'
+
+    rows = []
+
+    table = soup.find('table', {'class': 'table table--primary no-heading c2'})
+
+    if table is not None and len(table.find_all('li')) > 0:
+        table_elements = table.find_all('li')
+    else:
+        logging.warning('performance table for {} not found'.format(symbol))
+
+    elements_list = [symbol]
+    columns_list = ['symbol','5 Day','1 Month','3 Month','YTD','1 Year']
+
+    # iterating through the table elements and getting the required values
+    for i in range(0, len(table_elements), 2):
+        try:
+            elements_list.append(str(table_elements[i].getText()))
+            # columns_list.append(str(table.contents[i].contents[1].contents[1].getText()))
+        except:
+            logging.warning("loading performance table of {} failed".format(symbol))
+        else:
+            logging.info("performance table of {} loaded successfully".format(symbol))
+
+    rows.append(elements_list)
+    print(elements_list)
+
+    #creating a pd DataFrame from the 'rows' table
+    df = pd.DataFrame(rows, columns=columns_list)
+    df['date_time'] = pd.to_datetime('now')
+
+    #prints df for tests
+    print(df)
+
+    #uploading df to the database
+    df_to_db(DB_NAME, TABLE_NAME, df)
+
+# write_file("stock performance", rows)
 
 def main():
-    stock_performance()
-    get_stock_financials()
+    # stock_performance()
+    # get_stock_financials()
+    stock_overview()
 
 
 if __name__ == '__main__':

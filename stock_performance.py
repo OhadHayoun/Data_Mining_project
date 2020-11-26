@@ -97,9 +97,7 @@ def get_stock_financials():
         except:
             logging.warning('Annual Financials table for {} not found'.format(symbol))
 
-
         rows = ['Description', '2015 ', '2016', '2017', '2018', '2019']
-        # rows.append(['Description', '2015 ', '2016', '2017', '2018', '2019'])
 
         elements_list = []
 
@@ -130,14 +128,16 @@ def stock_overview():
     TABLE_NAME = 'key_data'
     DB_NAME = 'market_scraper'
 
-    filename = 'stocks_links_list.csv'
-    stocks_links_list = file_to_list(filename)
+    links_df = db_to_df(DB_NAME, 'stocks_links_list')
+    print(links_df)
+
+    # filename = 'stocks_links_list.csv'
+    # stocks_links_list = file_to_list(filename)
     rows = []
 
-    #iterating the stocks_links_list - each row the a stock page link
-    for stock in stocks_links_list[:4]:   ###### 3 for test
-        symbol = stock[0]
-        url = stock[1]
+    for row in links_df.iterrows():  ###### 3 for test
+        symbol = row[1][0]
+        url = row[1][1]
 
         #checking url and getting the page
         url_check(url)
@@ -186,20 +186,129 @@ def stock_overview():
     #uploading df to the database
     df_to_db(DB_NAME, TABLE_NAME, df)
 
-    # write_file("stock performance", rows)
-
     return
 
 def stock_profile():
+    """
+    gets the stock 'Profile' data from the Profile url page
+    """
+    TABLE_NAME = 'stock_profile'
+    DB_NAME = 'market_scraper'
+
+    base_financials_url_part1 = "https://www.marketwatch.com/investing/stock/"
+    base_financials_url_part2 = "/company-profile?mod=mw_quote_tab"
+
+    links_df = db_to_df(DB_NAME, 'stocks_links_list')
+
+    rows = []
+
+    for row in links_df.iterrows():  ###### 3 for test
+        symbol = row[1][0]
+        url = base_financials_url_part1 + symbol + base_financials_url_part2
+
+        # checking url and getting the page
+        url_check(url)
+
+        try:
+            page = requests.get(url)
+            soup = BeautifulSoup(page.text, 'html.parser')
+            # loading the required table value
+            table = soup.find('div', {'class': 'element element--text at-a-glance has-background background--blue'})
+            table2 = soup.find_all('td')
+
+        except ResourceWarning:
+            logging.warning('Error parsing the stock profile page for {} not found'.format(symbol))
+
+        else:
+            # getting the table elements from the table
+            if table is not None and len(table.find_all('li')) > 0:
+                market = soup.find('span', {'class': "company__market"}).getText()
+
+                company_market = market.split()[1]
+
+                address_div = table.find('div', {'class': "address"})
+                address = address_div.contents[1].contents[0] + ', ' + address_div.contents[3].contents[0]
+
+                phone_div = table.find('div', {'class': "phone"})
+                phone = phone_div.contents[3].getText()
+
+                # getting the table elements from the table
+                table_elements = table.find_all('li')
+
+            else:
+                logging.warning('Stock profile data for {} not found'.format(symbol))
+                continue
+
+            try:
+                # profile index for specific values
+                profile_index = [42, 43, 48, 49, 52, 53, 58, 59, 60, 61, 62, 63, 72, 73, 74, 75, 80, 81]
+
+                # getting the values
+                x = []
+                for i in profile_index:
+                    x.append(table2[i].getText())
+                profile_cols, profile_values = x[::2], x[1::2]
+
+            except ResourceWarning:
+                logging.warning('Error parsing the stock profile page for {}'.format(symbol))
+
+
+
+            elements_list = [symbol,company_market,address,phone]
+            columns_list = ['symbol','company_market','address','phone']
+
+            # iterating through the table elements and getting the required values
+            for i in range(0, len(table_elements)):
+                try:
+                    elements_list.append(str(table_elements[i].contents[3].getText()))
+                    columns_list.append(str(table_elements[i].contents[1].getText()))
+                except ResourceWarning:
+                    logging.warning("loading performance table of {} failed".format(symbol))
+                else:
+                    logging.info("performance table of {} loaded successfully".format(symbol))
+
+            # adding the values to the 'rows' table
+
+            profile_cols, profile_values
+
+            rows.append(elements_list + profile_values)
+            print(elements_list)
+
+
+    # creating a pd DataFrame from the 'rows' table
+    df = pd.DataFrame(rows, columns=columns_list +profile_cols )
+    df['date_time'] = pd.to_datetime('now')
+
+    # prints df for tests
+    print(df)
+
+    # uploading df to the database
+    df_to_db(DB_NAME, TABLE_NAME, df)
+
     return
 
-def df_to_db(database_name, table_name, df):
-
+def df_to_db(database_name, table_name, df, option='append' ):
+    """
+    uploading pandas DataFrame to the Database
+    """
+    # SQLAlchemy connectable
     engine = create_engine('sqlite:///{}.db'.format(database_name), echo=False)
     sqlite_connection = engine.connect()
 
-    df.to_sql(table_name, sqlite_connection, if_exists='append',index=False)
+    df.to_sql(table_name, sqlite_connection, if_exists=option, index=False)
     return
+
+def db_to_df(database_name, table_name):
+    """
+    loading pandas DataFrame from the Database
+    """
+    # SQLAlchemy connectable
+    engine = create_engine('sqlite:///{}.db'.format(database_name), echo=False)
+    sqlite_connection = engine.connect()
+
+    df = pd.read_sql_table(table_name, engine)
+
+    return df
 
 def stock_performance(soup,symbol):
     """
@@ -233,7 +342,12 @@ def stock_performance(soup,symbol):
     rows.append(elements_list)
     print(elements_list)
 
-    #creating a pd DataFrame from the 'rows' table
+    #filling missing data with 'Nan'
+    if len(rows[0]) < 6:
+        for i in range(6-len(rows[0])):
+            rows[0].append('Nan')
+
+    # creating a pd DataFrame from the 'rows' table
     df = pd.DataFrame(rows, columns=columns_list)
     df['date_time'] = pd.to_datetime('now')
 
@@ -243,11 +357,10 @@ def stock_performance(soup,symbol):
     #uploading df to the database
     df_to_db(DB_NAME, TABLE_NAME, df)
 
-# write_file("stock performance", rows)
 
 def main():
-    # stock_performance()
     # get_stock_financials()
+    stock_profile()
     stock_overview()
 
 

@@ -3,96 +3,10 @@ import requests
 import stock_performance as sp
 import pandas as pd
 import logging
+from sqlalchemy import create_engine
+import sqlite3
 
-#Old function
-def market_screener(command = None):
-    print(command)
-    """
-    Get market data tables of 'Top gainers' and 'Most Active' stocks
-    """
 
-    # define  basic urls and required lists
-    base_url = "https://www.marketwatch.com"
-
-    url_dict = {'Top gainers': "https://www.marketwatch.com/tools/screener?mod=stocks",
-                'Most Active': "https://www.marketwatch.com/tools/screener?exchange=Nyse&report=MostActive",
-                }
-
-    stocks_symbol_list = []
-    stocks_links_list = []
-
-    # itrate the url_dict to access each url
-    for name, url in url_dict.items():
-        sp.url_check(url)
-        # getting a page request from the url and parsing
-        # the page to a table with BeautifulSoup
-        try:
-            page = requests.get(url)
-            soup = BeautifulSoup(page.text, 'html.parser')
-            table = soup.find('table')
-
-            # if table is not None and len(table.find_all('tr')) > 0:
-            table_elements = table.find_all('tr')
-
-        except ResourceWarning:
-            print("Error reading '{}' page from url: {}".format(name, url))
-
-        rows = [['Symbol ', 'Company', 'Last', 'Change', '%_Change', 'Volume', '$_Traded']]
-
-        # iterating the table row (stock) to gat the data
-        for result in table_elements:
-            try:
-                # find all columns per result
-                data = result.find_all('td')
-                # check that columns have data
-                if len(data) == 0:
-                    continue
-
-                # write columns to variables
-                symbol = data[0].getText()
-                company = data[1].getText()
-                last = data[2].getText()
-                change = data[3].getText()
-                change_percent = data[4].getText()
-                volume = data[5].getText()
-                traded = data[6].getText()
-
-                # adding the stock symbol to a list
-                if symbol not in stocks_symbol_list and 'M' in volume:
-                    stocks_symbol_list.append(symbol)
-                    print('{} added to stocks_symbol_list'.format(symbol))
-
-                # append each result to rows
-                rows.append([symbol, company, last, change, change_percent, volume, traded])
-
-            except ResourceWarning:
-                print('Error getting  "{}" data'.format(result))
-
-            # getting the stock pages url link
-            link = result.find("a").get('href')
-
-            # adding the stock page url link to a list
-            if [base_url + link] not in stocks_links_list:
-                stocks_links_list.append([symbol, base_url + link])
-
-        print("==================")
-        print(f"{name} OUTPUT")
-
-        for row in rows:
-            print(row)
-        #writing the rows data to a file
-        if command == None:
-            sp.write_file(name, rows)
-
-    # writing the stocks links list to a file
-    if command == 'full':
-        print("Stocks Links List:")
-        for link in stocks_links_list:
-            print(link)
-    if command == None:
-        sp.write_file('stocks_links_list', stocks_links_list)
-
-#new function
 def stocks_screener(command = None):
     print('command = ', command)
     """
@@ -129,14 +43,9 @@ def stocks_screener(command = None):
           'MktIdxType=Outperform&MktIdxPct=&MktIdxExchange=&Exchange=All' \
           '&IndustryEnable=false&Industry=Accounting'
 
-
-    'https://www.marketwatch.com/tools/stockresearch/screener/results.asp?submit=Screen&Symbol=true&Symbol=false&ChangePct=true&ChangePct=false&FiftyTwoWeekLow=false&CompanyName=true&CompanyName=false&Volume=true&Volume=false&PERatio=true&PERatio=false&Price=true&Price=false&LastTradeTime=false&MarketCap=true&MarketCap=false&Change=true&Change=false&FiftyTwoWeekHigh=false&MoreInfo=false&SortyBy=ChangePct&SortDirection=Descending&ResultsPerPage=Fifty&TradesShareEnable=false&TradesShareMin=&TradesShareMax=&PriceDirEnable=false&PriceDir=Up&PriceDirPct=&LastYearEnable=false&LastYearAboveHigh=&TradeVolEnable=true&TradeVolMin=1000000&TradeVolMax=&BlockEnable=false&BlockAmt=&BlockTime=&PERatioEnable=false&PERatioMin=&PERatioMax=&MktCapEnable=true&MktCapMin=100&MktCapMax=&MovAvgEnable=false&MovAvgType=Outperform&MovAvgTime=FiftyDay&MktIdxEnable=false&MktIdxType=Outperform&MktIdxPct=&' \
-    'MktIdxExchange=&Exchange=NYSE&IndustryEnable=false&Industry=Accounting'
-
     #select exchange - dafault = all
     selected_exchange = exchange_list_options[0]
     url = url.replace("Exchange=All", "Exchange={}".format(selected_exchange))
-    print(url[-58:-30])   #test
 
     sp.url_check(url)
 
@@ -209,34 +118,42 @@ def stocks_screener(command = None):
     print(df)
 
     # uploading df to the database
-    sp.df_to_db(DB_NAME, TABLE_NAME, df)
+    sp.df_to_db(DB_NAME, TABLE_NAME, df, option='replace')
+
+    ## seting a primary key for the table - test
+    # engine = create_engine('sqlite:///{}.db'.format(DB_NAME), echo=False)
+    # with engine.connect() as con:
+    #     con.execute('ALTER TABLE stocks_screener ADD PRIMARY KEY (ID);')
+
+    # engine = create_engine('sqlite:///{}.db'.format(DB_NAME), echo=False)
+    # con = engine.connect()
+    # con.execute('ALTER TABLE `stocks_screener` ADD PRIMARY KEY (`symbol`);')
+    # # con.execute('ALTER TABLE `example_table` ADD PRIMARY KEY (`ID_column`);')
 
     print("==================")
     print(f"{name} OUTPUT")
 
-    for row in rows:
-        print(row)
-    # writing the rows data to a file
-    if command == None:
-        sp.write_file(name, rows)
-
-    # writing the stocks links list to a file
     if command == 'full':
         print("Stocks Links List:")
         for link in stocks_links_list:
             print(link)
     if command == None:
+        #writing to file -  remove later
         sp.write_file('stocks_links_list', stocks_links_list)
 
-    return
+        # creating a pd DataFrame from the 'stocks_links_list' table
+        df_stocks_links_list = pd.DataFrame(stocks_links_list, columns=['symbol','url'])
+        df_stocks_links_list['date_time'] = pd.to_datetime('now')
 
-def table_to_db():
+        # uploading df to the database
+        sp.df_to_db(DB_NAME, 'stocks_links_list', df_stocks_links_list[:5],'replace')  ######TODO test [:5] remove
 
     return
 
 def main(command = None):
     stocks_screener(command)
     sp.stock_overview()
+    sp.stock_profile()
     # sp.get_stock_financials()
 
 

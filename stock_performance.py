@@ -5,6 +5,7 @@ import os
 import logging
 import pandas as pd
 from sqlalchemy import create_engine
+import re
 import datetime
 
 def file_to_list(filename):
@@ -121,11 +122,11 @@ def get_stock_financials():
 
     return
 
-def stock_overview():
+def stock_key_data():
     """
     gets the stock 'KEY DATA' and the 'PERFORMANCE' tables from the stock 'OVERVIEW' page
     """
-    TABLE_NAME = 'key_data'
+    TABLE_NAME = 'stock_key_data'
     DB_NAME = 'market_scraper'
 
     links_df = db_to_df(DB_NAME, 'stocks_links_list')
@@ -167,10 +168,15 @@ def stock_overview():
             try:
                 elements_list.append(str(table_elements[i].contents[3].getText()))
                 columns_list.append(str(table_elements[i].contents[1].getText()))
+
             except ResourceWarning:
                 logging.warning("loading performance table of {} failed".format(symbol))
             else :
                 logging.info("performance table of {} loaded successfully".format(symbol))
+
+        #remvoe '%' and convert percentage to float
+        # [(float(x.strip('%')) / 100) if '%' in x else x for x in elements_list]
+        # [x + '[%]'  if '%' in x else x for x in columns_list]
 
         #adding the values to the 'rows' table
         rows.append(elements_list)
@@ -178,13 +184,27 @@ def stock_overview():
 
     #creating a pd DataFrame from the 'rows' table
     df = pd.DataFrame(rows, columns=columns_list)
+
+    #converting string numbers columns to float (on selected columns list)
+    convert_list = ['Open','Market Cap','Shares Outstanding','Public Float','Beta','Rev. per Employee','P/E Ratio','EPS','Yield','Dividend','Short Interest','Average Volume']
+    for i in convert_list:
+        df[i] = df[i].apply(value_to_float).astype(float)
+
     df['date_time'] = pd.to_datetime('now')
 
     #prints df for tests
     print(df)
 
     #uploading df to the database
-    df_to_db(DB_NAME, TABLE_NAME, df)
+    try:
+        df_to_db(DB_NAME, TABLE_NAME, df)
+        logging.info('df table {} uploaded to the database'.format(TABLE_NAME))
+        print('df table {} uploaded to the database'.format(TABLE_NAME))
+
+    except:
+        print('uploading df table {} to the database failed'.format(TABLE_NAME))
+        logging.ERROR('uploading df table {} to the database failed'.format(TABLE_NAME))
+
 
     return
 
@@ -249,41 +269,56 @@ def stock_profile():
                     x.append(table2[i].getText())
                 profile_cols, profile_values = x[::2], x[1::2]
 
-            except ResourceWarning:
+            except:
+            # except ResourceWarning:
                 logging.warning('Error parsing the stock profile page for {}'.format(symbol))
+            else:
 
+                elements_list = [symbol,company_market,address,phone]
+                columns_list = ['symbol','company_market','address','phone']
 
+                # iterating through the table elements and getting the required values
+                for i in range(0, len(table_elements)):
+                    try:
+                        elements_list.append(str(table_elements[i].contents[3].getText()))
+                        columns_list.append(str(table_elements[i].contents[1].getText()))
+                    except:
+                        logging.warning("loading performance table of {} failed".format(symbol))
+                    else:
+                        logging.info("performance table of {} loaded successfully".format(symbol))
 
-            elements_list = [symbol,company_market,address,phone]
-            columns_list = ['symbol','company_market','address','phone']
+                # adding the values to the 'rows' table
 
-            # iterating through the table elements and getting the required values
-            for i in range(0, len(table_elements)):
-                try:
-                    elements_list.append(str(table_elements[i].contents[3].getText()))
-                    columns_list.append(str(table_elements[i].contents[1].getText()))
-                except ResourceWarning:
-                    logging.warning("loading performance table of {} failed".format(symbol))
-                else:
-                    logging.info("performance table of {} loaded successfully".format(symbol))
+                profile_cols, profile_values
 
-            # adding the values to the 'rows' table
-
-            profile_cols, profile_values
-
-            rows.append(elements_list + profile_values)
-            print(elements_list)
+                rows.append(elements_list + profile_values)
+                print(elements_list)
 
 
     # creating a pd DataFrame from the 'rows' table
     df = pd.DataFrame(rows, columns=columns_list +profile_cols )
+
+    ######################
+    #converting string numbers columns to float (on selected columns list)
+    # convert_list = ['Revenue','Net Income','Revenue/Employee','Income Per Employeee']
+    # for i in convert_list:
+    #     df[i] = df[i].apply(value_to_float).astype(float)
+
+    #adding current datetime column
     df['date_time'] = pd.to_datetime('now')
 
     # prints df for tests
     print(df)
 
     # uploading df to the database
-    df_to_db(DB_NAME, TABLE_NAME, df)
+    try:
+        df_to_db(DB_NAME, TABLE_NAME, df)
+        logging.info('df table {} uploaded to the database'.format(TABLE_NAME))
+        print('df table {} uploaded to the database'.format(TABLE_NAME))
+
+    except:
+        logging.ERROR('uploading df table {} to the database failed'.format(TABLE_NAME))
+        print('uploading df table {} to the database failed'.format(TABLE_NAME))
 
     return
 
@@ -327,12 +362,15 @@ def stock_performance(soup,symbol):
         logging.warning('performance table for {} not found'.format(symbol))
 
     elements_list = [symbol]
-    columns_list = ['symbol','5 Day','1 Month','3 Month','YTD','1 Year']
+    columns_list = ['symbol','5 Day[%]','1 Month[%]','3 Month[%]','YTD[%]','1 Year[%]']
 
     # iterating through the table elements and getting the required values
     for i in range(0, len(table_elements), 2):
         try:
-            elements_list.append(str(table_elements[i].getText()))
+            element_value = str(table_elements[i].getText())
+            if '%' in element_value:
+                element_value = element_value.replace('%', '')
+            elements_list.append(element_value)
             # columns_list.append(str(table.contents[i].contents[1].contents[1].getText()))
         except:
             logging.warning("loading performance table of {} failed".format(symbol))
@@ -348,20 +386,55 @@ def stock_performance(soup,symbol):
             rows[0].append('Nan')
 
     # creating a pd DataFrame from the 'rows' table
-    df = pd.DataFrame(rows, columns=columns_list)
+    df = pd.DataFrame(rows, columns=columns_list)  #TODO fix after test
+
+
     df['date_time'] = pd.to_datetime('now')
 
     #prints df for tests
     print(df)
 
-    #uploading df to the database
-    df_to_db(DB_NAME, TABLE_NAME, df)
+    # uploading df to the database
+    try:
+        df_to_db(DB_NAME, TABLE_NAME, df)
+        logging.info('df table {} uploaded to the database'.format(TABLE_NAME))
+        print('df table {} uploaded to the database'.format(TABLE_NAME))
 
+    except:
+        logging.ERROR('uploading df table {} to the database failed'.format(TABLE_NAME))
+        print('uploading df table {} to the database failed'.format(TABLE_NAME))
+
+def value_to_float(x):
+    """This function converts a string value containing ('$','K','M','B') to a float number:
+     'K' = value *1000
+     'M' = value *1,000,000
+     'B' = value *1,000,000,000
+     """
+
+    if type(x) == float or type(x) == int:
+        return x
+    if x == 'N/A' or  x == 'None':
+        return None
+
+    if '$' in x:
+        x = x.replace('$', '')
+
+    if 'K' in x:
+        if len(x) > 1:
+            return float(''.join(re.findall(r'\d+', (x.replace('K', ''))))) * 1000
+    if 'M' in x:
+        if len(x) > 1:
+            return float(''.join(re.findall(r'\d+', (x.replace('M', ''))))) * 1000000
+
+    if 'B' in x:
+        return float(''.join(re.findall(r'\d+', (x.replace('B', ''))))) * 1000000000
+    else:
+        return x
 
 def main():
     # get_stock_financials()
     stock_profile()
-    stock_overview()
+    stock_key_data()
 
 
 if __name__ == '__main__':

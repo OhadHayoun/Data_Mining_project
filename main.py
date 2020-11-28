@@ -3,6 +3,7 @@ import requests
 import stock_performance as sp
 import pandas as pd
 import logging
+import create_db
 from sqlalchemy import create_engine
 import sqlite3
 
@@ -67,8 +68,6 @@ def stocks_screener(command = None):
     rows = []
     columns_list = ['symbol', 'company', 'last_price', 'price_change', 'change_percentage', 'volume', 'pe_ratio', 'market_cap']
 
-
-
     # iterating the table row (stock) to gat the data
     for result in table_elements:
         try:
@@ -109,7 +108,6 @@ def stocks_screener(command = None):
             if [base_url + link] not in stocks_links_list:
                 stocks_links_list.append([symbol, base_url + link])
 
-
     # creating a pd DataFrame from the 'rows' table
     df = pd.DataFrame(rows, columns=columns_list)
     df['date_time'] = pd.to_datetime('now')
@@ -118,7 +116,14 @@ def stocks_screener(command = None):
     print(df)
 
     # uploading df to the database
-    sp.df_to_db(DB_NAME, TABLE_NAME, df, option='replace')
+    try:
+        sp.df_to_db(DB_NAME, TABLE_NAME, df, option='append')
+        logging.info('df table {} uploaded to the database'.format(TABLE_NAME))
+        print('df table {} uploaded to the database'.format(TABLE_NAME))
+
+    except:
+        logging.ERROR('uploading df table {} to the database failed'.format(TABLE_NAME))
+        print('uploading df table {} to the database failed'.format(TABLE_NAME))
 
     ## seting a primary key for the table - test
     # engine = create_engine('sqlite:///{}.db'.format(DB_NAME), echo=False)
@@ -151,8 +156,11 @@ def stocks_screener(command = None):
     return
 
 def main(command = None):
+
+    create_db.create_db()
+
     stocks_screener(command)
-    sp.stock_overview()
+    sp.stock_key_data()
     sp.stock_profile()
     # sp.get_stock_financials()
 
